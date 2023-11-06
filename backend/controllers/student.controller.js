@@ -72,10 +72,10 @@ export const deleteSingleStudent = async (studentId) => {
   }
 };
 
-export const updateSingleStudent = async (studentData) => {
+export const updateSingleStudent = async (studentId, studentData) => {
   try {
     const studentUpdated = await Student.findOneAndUpdate(
-      { _id: studentData._id },
+      { _id: studentId },
       studentData,
       { new: true }
     );
