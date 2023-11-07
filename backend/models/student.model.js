@@ -2,7 +2,7 @@ import mongoose, { Schema, model } from "mongoose";
 
 const studentSchema = Schema(
   {
-    name: { stype: String, required: true },
+    name: { type: String, required: true },
     age: { type: Number, required: true },
     gender: {
       type: String,

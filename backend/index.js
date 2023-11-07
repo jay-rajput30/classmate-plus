@@ -1,8 +1,10 @@
 import express from "express";
 import { dbConnect } from "./db/db.connect.js";
+import studentRouter from "./routes/student.route.js";
 
 const app = express();
 dbConnect();
+app.use("/student", studentRouter);
 const PORT = process.env["PORT"] || 3002;
 
 app.get("/", (req, res) => {

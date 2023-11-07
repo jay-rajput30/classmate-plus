@@ -1,17 +1,17 @@
 import express from "express";
 import {
-  addNewStudent,
-  deleteSingleStudent,
-  getAllStudents,
-  updateSingleStudent,
-} from "../controllers/student.controller.js";
+  addNewTeacher,
+  deleteSingleTeacher,
+  getAllTeacher,
+  updateSingleTeacher,
+} from "../controllers/teacher.controller";
 
-const studentRouter = express.Router();
+const teacherRouter = express.Router();
 
-//get all students
-studentRouter.get("/", async (req, res) => {
+//get all teachers
+teacherRouter.get("/", async (req, res) => {
   try {
-    const { data, success, error } = await getAllStudents();
+    const { data, success, error } = await getAllTeacher();
     if (success) {
       res.status(200).send({ success, data, error });
     } else {
@@ -22,11 +22,11 @@ studentRouter.get("/", async (req, res) => {
   }
 });
 
-//add new student
-studentRouter.post("/", async (req, res) => {
+//add new teacher
+teacherRouter.post("/", async (req, res) => {
   try {
     const studentData = req.body;
-    const { data, success, error } = await addNewStudent(studentData);
+    const { data, success, error } = await addNewTeacher(studentData);
     if (success) {
       res.status(200).send({ success, data, error });
     } else {
@@ -37,14 +37,14 @@ studentRouter.post("/", async (req, res) => {
   }
 });
 
-//update student
-studentRouter.post("/:studentId", async (req, res) => {
+//update teacher
+teacherRouter.post("/:teacherId", async (req, res) => {
   try {
-    const studentId = req.params.studentId;
-    const studentData = req.body;
-    const { data, success, error } = await updateSingleStudent(
-      studentId,
-      studentData
+    const teacherId = req.params.teacherId;
+    const teacherData = req.body;
+    const { data, success, error } = await updateSingleTeacher(
+      teacherId,
+      teacherData
     );
     if (success) {
       res.status(200).send({ success, data, error });
@@ -56,11 +56,11 @@ studentRouter.post("/:studentId", async (req, res) => {
   }
 });
 
-//delete student
-studentRouter.delete("/:studentId", async (req, res) => {
+//delete teacher
+teacherRouter.delete("/:teacherId", async (req, res) => {
   try {
-    const studentId = req.params.studentId;
-    const { data, success, error } = await deleteSingleStudent(studentId);
+    const teacherId = req.params.teacherId;
+    const { data, success, error } = await deleteSingleTeacher(studentId);
     if (success) {
       res.status(200).send({ success, data, error });
     } else {
@@ -71,4 +71,4 @@ studentRouter.delete("/:studentId", async (req, res) => {
   }
 });
 
-export default studentRouter;
+export default teacherRouter;

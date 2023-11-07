@@ -1,6 +1,6 @@
 import Class from "../models/class.model";
 
-export const getAllStudents = async (classId) => {
+export const getClassDetails = async (classId) => {
   try {
     const classStudentsFound = await Class.find({ _id: classId })
       .populate("student")
