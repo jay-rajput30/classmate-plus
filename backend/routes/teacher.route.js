@@ -4,7 +4,7 @@ import {
   deleteSingleTeacher,
   getAllTeacher,
   updateSingleTeacher,
-} from "../controllers/teacher.controller";
+} from "../controllers/teacher.controller.js";
 
 const teacherRouter = express.Router();
 
@@ -37,6 +37,7 @@ teacherRouter.post("/", async (req, res) => {
   }
 });
 
+//TODO: check update teacher api call.  seesms to be some error.
 //update teacher
 teacherRouter.post("/:teacherId", async (req, res) => {
   try {
@@ -60,7 +61,7 @@ teacherRouter.post("/:teacherId", async (req, res) => {
 teacherRouter.delete("/:teacherId", async (req, res) => {
   try {
     const teacherId = req.params.teacherId;
-    const { data, success, error } = await deleteSingleTeacher(studentId);
+    const { data, success, error } = await deleteSingleTeacher(teacherId);
     if (success) {
       res.status(200).send({ success, data, error });
     } else {

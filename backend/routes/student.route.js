@@ -26,6 +26,7 @@ studentRouter.get("/", async (req, res) => {
 studentRouter.post("/", async (req, res) => {
   try {
     const studentData = req.body;
+    console.log({ studentData });
     const { data, success, error } = await addNewStudent(studentData);
     if (success) {
       res.status(200).send({ success, data, error });

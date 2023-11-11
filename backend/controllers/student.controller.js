@@ -8,7 +8,7 @@ export const addNewStudent = async (studentData) => {
       return { success: true, data: studentAdded, error: null };
     } else {
       return {
-        succesS: false,
+        success: false,
         data: null,
         error: "unable to add new student",
       };
@@ -25,7 +25,7 @@ export const getAllStudents = async () => {
       return { success: true, data: allStudents, error: null };
     } else {
       return {
-        succesS: false,
+        success: false,
         data: null,
         error: "unable to get all students",
       };
@@ -42,7 +42,7 @@ export const getStudentByName = async (studentName) => {
       return { success: true, data: studentFound, error: null };
     } else {
       return {
-        succesS: false,
+        success: false,
         data: null,
         error: "unable to get single student",
       };
@@ -62,7 +62,7 @@ export const deleteSingleStudent = async (studentId) => {
       return { success: true, data: studentDeleted, error: null };
     } else {
       return {
-        succesS: false,
+        success: false,
         data: null,
         error: "unable to delete single student",
       };
@@ -83,7 +83,7 @@ export const updateSingleStudent = async (studentId, studentData) => {
       return { success: true, data: studentUpdated, error: null };
     } else {
       return {
-        succesS: false,
+        success: false,
         data: null,
         error: "unable to update single student",
       };
