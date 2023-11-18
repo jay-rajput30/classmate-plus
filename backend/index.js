@@ -3,10 +3,11 @@ import { dbConnect } from "./db/db.connect.js";
 import studentRouter from "./routes/student.route.js";
 import teacherRouter from "./routes/teacher.route.js";
 import classRouter from "./routes/class.route.js";
-
+import cors from "cors";
 const app = express();
 dbConnect();
 app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use("/student", studentRouter);
 app.use("/teacher", teacherRouter);
 app.use("/class", classRouter);

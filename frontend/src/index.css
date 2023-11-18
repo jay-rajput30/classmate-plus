@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .form-container {
+    @apply flex flex-col p-4 m-4 border-4 rounded-md gap-4 bg-inherit md:w-6/12 md:mx-auto;
+  }
+  .form-item {
+    @apply flex flex-col justify-between;
+  }
+  .form-item > div > * {
+    @apply flex-1;
+  }
+}

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
+import axios from 'axios';
 const initialState = {
   students: [],
   error: null,
@@ -9,18 +9,20 @@ const initialState = {
 export const addStudentAsync = createAsyncThunk(
   'students/addStudentAsync',
   async (newStudent) => {
+    console.log('add student function called');
     const response = await axios.post(
       'http://localhost:3002/student',
       newStudent,
     );
-    return response.data;
+    console.log({ response: response.data.data });
+    return response.data.data;
   },
 );
 export const getAllStudents = createAsyncThunk(
   'students/getAllStudents',
   async () => {
     const response = await axios.get('http://localhost:3002/student');
-    return response.data;
+    return response.data.data;
   },
 );
 export const updateStudent = createAsyncThunk(
@@ -38,14 +40,16 @@ export const studentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [addStudentAsync.pending]: (state) => state.status === 'loading',
+    [addStudentAsync.pending]: (state) => {
+      state.status = 'loading';
+    },
     [addStudentAsync.fulfilled]: (state, action) => {
-      state.status === 'success';
-      state.students.push(action.payload);
+      state.status = 'success';
+      state.students = [...state.students, action.payload];
     },
     [addStudentAsync.rejected]: (state, action) => {
-      state.status === 'error';
-      state.error = action.payload;
+      state.status = 'error';
+      state.error = action.error.message;
     },
     [getAllStudents.pending]: (state) => {
       state.status = 'loading';
@@ -68,9 +72,10 @@ export const studentSlice = createSlice({
         (student) => student._id === updatedStudent._id,
       );
       if (studentFound !== -1) {
-        state.students[studentFound] = updatedStudent;
+        state.students = state.students.map((student) =>
+          student._id === updatedStudent._id ? updatedStudent : student,
+        );
       }
-      state.students = action.payload;
     },
     [updateStudent.rejected]: (state, action) => {
       state.status = 'error';

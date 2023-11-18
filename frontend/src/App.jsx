@@ -7,9 +7,8 @@ import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
-    <div className="h-full bg-background">
+    <div className="h-full">
       <Navbar />
-      <h1 className="text-4xl text-headingText font-heading">classmate plus</h1>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/student" element={<Students />} />
