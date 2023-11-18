@@ -1,63 +1,32 @@
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { VALID_GRADES } from '../../utils/constants';
 import { DevTool } from '@hookform/devtools';
-import { useDispatch } from 'react-redux';
-import { addStudentAsync, updateStudent } from './StudentsSlice';
-
-const StudentForm = ({
-  student,
-  setUpdateStudentData,
-  showUpdateStudentForm,
-  setShowUpdateStudentForm,
-}) => {
+import { VALID_GRADES } from '../../utils/constants';
+const UpdateStudentForm = ({ setShowUpdateStudent }) => {
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm({ defaultValues: student || {} });
-  const dispatch = useDispatch();
+  } = useForm({ defaultValues: {} });
 
   const studentFormSubmitHandler = (data) => {
-    if (showUpdateStudentForm) {
-      dispatch(updateStudent(student));
-      setUpdateStudentData({
-        id: '',
-        name: '',
-        age: 18,
-        gender: 'male',
-        grade: 'b',
-        attendance: 75,
-        marks: 75,
-      });
-    } else {
-      const updatedData = {
-        ...data,
-        attendance: +data.attendance,
-        marks: +data.marks,
-        age: +data.age,
-      };
-
-      dispatch(addStudentAsync(updatedData));
-    }
+    console.log({ data });
   };
+
   return (
     <form
       onSubmit={handleSubmit(studentFormSubmitHandler)}
       noValidate
-      className="form-container"
+      className="form-container absolute top-8 left-4 bg-background border-primary"
     >
+      <h2>update student form</h2>
       <div className="form-item">
         <div className="flex justify-between">
           <label htmlFor="name" className="font-semibold">
             name
           </label>
-          <input
-            id="name"
-            {...register('name')}
-            className="border-2"
-            defaultValue={student?.name || ''}
-          />
+          <input id="name" {...register('name')} className="border-2" />
         </div>
         <p className="text-rose-600 text-sm">{errors.name?.message}</p>
       </div>
@@ -71,7 +40,6 @@ const StudentForm = ({
             {...register('age')}
             className="border-2"
             type="number"
-            defaultValue={student?.age || ''}
           />
         </div>
         <p className="text-rose-600 text-sm">{errors.age?.message}</p>
@@ -81,12 +49,7 @@ const StudentForm = ({
           <label className="font-semibold" htmlFor="gender">
             gender
           </label>
-          <select
-            id="gender"
-            {...register('gender')}
-            className="border-2"
-            defaultValue={student?.gender || 'male'}
-          >
+          <select id="gender" {...register('gender')} className="border-2">
             <option value="male">male</option>
             <option value="female">female</option>
           </select>
@@ -110,7 +73,6 @@ const StudentForm = ({
               },
             })}
             className="border-2"
-            defaultValue={student?.grade || ''}
           />
         </div>
         <p className="text-rose-600 text-sm">{errors.grade?.message}</p>
@@ -125,7 +87,6 @@ const StudentForm = ({
             id="attendance"
             {...register('attendance')}
             className="border-2"
-            defaultValue={student?.attendance || ''}
           />
         </div>
         <p className="text-rose-600 text-sm">{errors.attendance?.message}</p>
@@ -140,18 +101,15 @@ const StudentForm = ({
             id="marks"
             {...register('marks')}
             className="border-2"
-            defaultValue={student?.marks || ''}
           />
         </div>
         <p className="text-rose-600 text-sm">{errors.marks?.message}</p>
       </div>
       <div className="flex flex-row  gap-8">
-        <button className="bg-primary py-1 rounded-md flex-1">
-          {showUpdateStudentForm ? 'update' : 'add'}
-        </button>
+        <button className="bg-primary py-1 rounded-md flex-1">add</button>
         <button
           className="bg-slate-200 py-1 rounded-md border-2 flex-1"
-          onClick={() => setShowUpdateStudentForm(false)}
+          onClick={() => setShowUpdateStudent(false)}
         >
           cancel
         </button>
@@ -161,4 +119,4 @@ const StudentForm = ({
   );
 };
 
-export default StudentForm;
+export default UpdateStudentForm;

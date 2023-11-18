@@ -29,10 +29,20 @@ export const updateStudent = createAsyncThunk(
   'students/updateStudents',
   async (updatedStudentData) => {
     const response = await axios.post(
-      `http://localhost:3002/student/${updatedStudentData.studentId}`,
+      `http://localhost:3002/student/${updatedStudentData._id}`,
       updatedStudentData,
     );
-    return response.data;
+    return response.data.data;
+  },
+);
+
+export const deleteStudent = createAsyncThunk(
+  'students/updateStudents',
+  async (updatedStudentData) => {
+    const response = await axios.delete(
+      `http://localhost:3002/student/${updatedStudentData._id}`,
+    );
+    return response.data.data;
   },
 );
 export const studentSlice = createSlice({
@@ -78,6 +88,20 @@ export const studentSlice = createSlice({
       }
     },
     [updateStudent.rejected]: (state, action) => {
+      state.status = 'error';
+      state.error = action.payload;
+    },
+    [deleteStudent.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [deleteStudent.fulfilled]: (state, action) => {
+      state.status = 'success';
+      console.log({ d: action.payload });
+      state.students = state.students.filter(
+        (student) => student._id !== action.payload._id,
+      );
+    },
+    [deleteStudent.rejected]: (state, action) => {
       state.status = 'error';
       state.error = action.payload;
     },
