@@ -24,7 +24,7 @@ const StudentList = ({
             key={student._id}
             className="border-2 border-text m-2 pt-4 p-2 w-3/4 md:basis-60 text-sm rounded-md shadow-md shadow-text"
           >
-            <p className="flex flex-row justify-between gap-4 mb-2">
+            <div className="flex flex-row justify-between gap-4 mb-2">
               <strong className="text-tertiary">student details</strong>
               <div className="flex gap-2">
                 <Pencil
@@ -40,7 +40,7 @@ const StudentList = ({
                   onClick={() => deleteBtnClickHandler(student)}
                 />
               </div>
-            </p>
+            </div>
             <p className="flex flex-row justify-between gap-4">
               <strong>name</strong>
               <span>{student.name}</span>

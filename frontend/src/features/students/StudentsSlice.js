@@ -14,7 +14,7 @@ export const addStudentAsync = createAsyncThunk(
       'http://localhost:3002/student',
       newStudent,
     );
-    console.log({ response: response.data.data });
+
     return response.data.data;
   },
 );
@@ -26,12 +26,13 @@ export const getAllStudents = createAsyncThunk(
   },
 );
 export const updateStudent = createAsyncThunk(
-  'students/updateStudents',
+  'students/updateStudent',
   async (updatedStudentData) => {
     const response = await axios.post(
       `http://localhost:3002/student/${updatedStudentData._id}`,
       updatedStudentData,
     );
+    console.log({ updateStudentRes: response.data });
     return response.data.data;
   },
 );
@@ -78,6 +79,7 @@ export const studentSlice = createSlice({
     [updateStudent.fulfilled]: (state, action) => {
       state.status = 'success';
       const updatedStudent = action.payload;
+      console.log({ state, updatedStudent });
       const studentFound = state.students.findIndex(
         (student) => student._id === updatedStudent._id,
       );

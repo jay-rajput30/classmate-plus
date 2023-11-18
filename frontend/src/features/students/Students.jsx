@@ -8,7 +8,7 @@ import UpdateStudentForm from './UpdateStudentForm';
 const Students = () => {
   const [showUpdateStudentForm, setShowUpdateStudentForm] = useState(false);
   const [updateStudentData, setUpdateStudentData] = useState({
-    id: '',
+    _id: '',
     name: '',
     age: 18,
     gender: 'male',

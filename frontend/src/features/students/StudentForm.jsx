@@ -20,9 +20,10 @@ const StudentForm = ({
 
   const studentFormSubmitHandler = (data) => {
     if (showUpdateStudentForm) {
-      dispatch(updateStudent(student));
+      console.log({ _id: student._id, ...data });
+      dispatch(updateStudent({ _id: student._id, ...data }));
       setUpdateStudentData({
-        id: '',
+        _id: '',
         name: '',
         age: 18,
         gender: 'male',
@@ -30,6 +31,7 @@ const StudentForm = ({
         attendance: 75,
         marks: 75,
       });
+      setShowUpdateStudentForm(false);
     } else {
       const updatedData = {
         ...data,
